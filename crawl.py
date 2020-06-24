@@ -43,7 +43,7 @@ while True:
         interval = curTime - preTime
         print "Changing interval: " + preQuality + "->" + curQuality + ":" + str(interval) + "\n"
         preTime = time.time()
-        subprocess.call(["sudo", "./Den-thesis/write_proc", qualitySet[qualityInd]])
+        subprocess.call(["sudo", "./module/write_proc", portionSet[portionInd]])
         print "Portion: " + portionSet[portionInd] + "\n"
         portionInd += 1
     time.sleep(5)
