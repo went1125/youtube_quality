@@ -10,7 +10,8 @@ time.sleep(2)
 
 Options.binary_location = "/usr/bin/google-chrome"
 webdriver_path = './chromedriver'
-options = Options()
+options = webdriver.ChromeOptions()
+options.add_argument("--start-maximized")
 driver = webdriver.Chrome(executable_path=webdriver_path, options=options)
 driver.get("https://www.youtube.com/watch?v=rMGEMYaQiOg&feature=share&fbclid=IwAR1N4OGZ0xvSV9g5_rf__YgBVAwGwrJS1KDOjC4m9MuOaw4OEz3qWSLnC0A")
 
@@ -28,9 +29,9 @@ portionInd += 1
 
 while True:
     try:
-        curQuality = driver.find_element_by_class_name("ytp-menu-label-secondary").text
+        curQuality = driver.find_element_by_class_name("ytp-menu-label-secondcary").text
     
-    except (NoSuchElementException, StaleElementReferenceException) as e:
+    except StaleElementReferenceException as e:
         continue
 
     curTime = time.time()
