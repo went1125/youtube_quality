@@ -4,6 +4,7 @@ import time
 import subprocess
 
 subprocess.call(["sudo", "./Den-thesis/write_proc", "0.14285"])
+print "Portion: 0.14285\n"
 
 time.sleep(2)
 
@@ -15,24 +16,35 @@ driver.get("https://www.youtube.com/watch?v=rMGEMYaQiOg&feature=share&fbclid=IwA
 
 time.sleep(15)
 
+print "Start measuring.\n"
 portionSet = ["0.5", "0.44", "0.636", "1.5714", "2.2727", "2"] # Set of resource block changing portion.
 portionInd = 0
 
-preQuality = driver.find_elements_by_class_name("ytp-menu-label-secondary").text
+preQuality = driver.find_element_by_class_name("ytp-menu-label-secondary").text
 preTime = time.time()
 subprocess.call(["sudo", "./Den-thesis/write_proc", portionSet[portionInd]])
+print "Portion: " + portionSet[portionInd]
 portionInd += 1
 
 while True:
-    curQuality = driver.find_elements_by_class_name("ytp-menu-label-secondary").text
+    try:
+        curQuality = driver.find_element_by_class_name("ytp-menu-label-secondary").text
+    
+    except (NoSuchElementException, StaleElementReferenceException) as e:
+        continue
+
     curTime = time.time()
     if curQuality != preQuality:
         if portionInd == len(portionSet): # Finish the quality testing.
             break
 
-        qualityChangingInterval = curTime - preTime
+        preQuality = curQuality
+        interval = curTime - preTime
+        print "Changing interval: " + preQuality + "->" + curQuality + ":" + str(interval) + "\n"
         preTime = time.time()
         subprocess.call(["sudo", "./Den-thesis/write_proc", qualitySet[qualityInd]])
+        print "Portion: " + portionSet[portionInd] + "\n"
         portionInd += 1
+    time.sleep(5)
         
 driver.close()
