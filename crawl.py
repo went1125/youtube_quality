@@ -23,7 +23,7 @@ portionInd = 0
 
 preQuality = driver.find_element_by_class_name("ytp-menu-label-secondary").text
 preTime = time.time()
-subprocess.call(["sudo", "./Den-thesis/write_proc", portionSet[portionInd]])
+subprocess.call(["sudo", "./module/write_proc", portionSet[portionInd]])
 print "Portion: " + portionSet[portionInd]
 portionInd += 1
 
