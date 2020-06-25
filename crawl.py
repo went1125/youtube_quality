@@ -3,7 +3,7 @@ from selenium.webdriver.chrome.options import Options
 import time
 import subprocess
 
-subprocess.call(["sudo", "./Den-thesis/write_proc", "0.14285"])
+subprocess.call(["sudo", "./module/write_proc", "0.14285"])
 print "Portion: 0.14285\n"
 
 time.sleep(2)
@@ -29,7 +29,7 @@ portionInd += 1
 
 while True:
     try:
-        curQuality = driver.find_element_by_class_name("ytp-menu-label-secondcary").text
+        curQuality = driver.find_element_by_class_name("ytp-menu-label-secondary").text
     
     except StaleElementReferenceException as e:
         continue
